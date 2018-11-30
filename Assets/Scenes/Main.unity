@@ -150,9 +150,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRunning: 0
-  tickRate: 0.5
+  tickRate: 1
   gridWidth: 50
   gridHeight: 30
+  gridOutline: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!20 &481267059
 Camera:
   m_ObjectHideFlags: 0

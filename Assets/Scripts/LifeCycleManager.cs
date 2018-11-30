@@ -6,8 +6,9 @@ public class LifeCycleManager : MonoBehaviour {
 
     public bool isRunning = false;
     public float tickRate = 1f;
-    public int gridWidth = 20;
-    public int gridHeight = 20;
+    public int gridWidth = 50;
+    public int gridHeight = 30;
+    public Color gridOutline = Color.gray;
 
     bool[,] cells;
     GameObject[,] cubes;
@@ -23,6 +24,7 @@ public class LifeCycleManager : MonoBehaviour {
 
         AdjustCamera();
         GenerateGrid();
+        DrawGridOutline();
         StartCoroutine(Tick());
     }
 
@@ -77,7 +79,7 @@ public class LifeCycleManager : MonoBehaviour {
     {
         Camera cam = GetComponent<Camera>();
         cam.transform.position = new Vector3(gridWidth / 2, gridHeight / 2);
-        cam.orthographicSize = gridHeight / 2 + 5;
+        cam.orthographicSize = gridHeight / 2 + 1;
     }
     
     /// <summary>
@@ -92,6 +94,41 @@ public class LifeCycleManager : MonoBehaviour {
                 CreateCube(x, y);
             }
         }
+    }
+
+    /// <summary>
+    /// Draws the outline edges of the grid
+    /// </summary>
+    void DrawGridOutline()
+    {
+        for (int y = 0; y <= gridHeight; y++)
+        {
+            Vector3 startPos = new Vector3(0, y, 1.5f);
+            Vector3 endPos = new Vector3(gridWidth, y, 1.5f);
+            DrawLine(startPos, endPos);
+        }
+
+        for (int x = 0; x <= gridWidth; x++)
+        {
+            Vector3 startPos = new Vector3(x, 0, 1.5f);
+            Vector3 endPos = new Vector3(x, gridHeight, 1.5f);
+            DrawLine(startPos, endPos);
+        }
+    }
+
+    void DrawLine(Vector3 start, Vector3 end)
+    {
+        GameObject myLine = new GameObject();
+        myLine.transform.position = start;
+        myLine.AddComponent<LineRenderer>();
+        LineRenderer lr = myLine.GetComponent<LineRenderer>();
+        lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+        lr.startColor = gridOutline;
+        lr.endColor = gridOutline;
+        lr.startWidth = 0.1f;
+        lr.endWidth = 0.1f;
+        lr.SetPosition(0, start);
+        lr.SetPosition(1, end);
     }
 
     /// <summary>
