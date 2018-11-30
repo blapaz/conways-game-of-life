@@ -149,9 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fc88b424094b3e4eb07794bfbf8908b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRunning: 0
   tickRate: 0.5
   gridWidth: 50
-  gridHeight: 20
+  gridHeight: 30
 --- !u!20 &481267059
 Camera:
   m_ObjectHideFlags: 0
